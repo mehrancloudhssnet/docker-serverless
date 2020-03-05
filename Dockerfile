@@ -1,9 +1,7 @@
-FROM node:8.10
+FROM node:12-buster
 
-COPY ./apiGateway.js /tmp/
-COPY ./removeAlias.js /tmp/
+RUN npm install -g serverless && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install
 
-RUN npm install -g serverless@1.38.0 && \
-    npm install -g serverless-aws-alias@1.7.1 && \
-    cp -f /tmp/apiGateway.js /usr/local/lib/node_modules/serverless-aws-alias/lib/stackops/ && \
-    cp -f /tmp/removeAlias.js /usr/local/lib/node_modules/serverless-aws-alias/lib/
